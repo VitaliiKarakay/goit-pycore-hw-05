@@ -4,22 +4,18 @@ from src.bot.decorator import input_error
 
 @input_error
 def change_phone_by_name(args, contacts):
-    name = args[0]
+    name = str.capitalize(args[0])
+    if name not in contacts:
+        raise KeyError
     new_phone = args[1]
-    if str.capitalize(name) in contacts:
-        contacts[name] = new_phone
-        print(f"{name} phone number changed to {new_phone}.")
-    else:
-        print(f"{name} not found.")
+    contacts[name] = new_phone
+    return f"{name} phone number changed to {new_phone}."
 
 
 @input_error
 def get_phone_by_name(args, contacts):
     name = str.capitalize(args[0])
-    if name in contacts:
-        print(f"{name}: {contacts[name]}")
-    else:
-        print(f"{name} not found.")
+    return f"{name}: {contacts[name]}"
 
 
 @input_error
